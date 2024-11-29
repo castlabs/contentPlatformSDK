@@ -1,0 +1,15 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+.idea
+
+lib/
+include/
+bin/
+pyvenv.cfg
+.env
+environment.env
+.coverage
+coverage/lcov.info
+.DS_Store

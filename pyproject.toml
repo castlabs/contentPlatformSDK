@@ -1,0 +1,88 @@
+[tool.poetry]
+name = "castlabs"
+version = "0.2.0"
+description = "A Python SDK for the Castlabs Content Platform"
+authors = [
+    "Daniel Mundt <daniel.mundt@castlabs.com>",
+    "Tom Weiss <tom@mx8labs.com>",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+boto3 = "1.35.45"
+botocore = "1.35.45"
+certifi = "2024.8.30"
+charset-normalizer = "3.4.0"
+idna = "3.10"
+jmespath = "1.0.1"
+python-dateutil = "2.9.0.post0"
+requests = "2.32.3"
+s3transfer = "0.10.3"
+six = "1.16.0"
+urllib3 = "2.2.3"
+pydantic = "^2.10.2"
+
+[tool.poetry.dev-dependencies]
+boto3-stubs = { version = "1.35.70", extras = ["s3control"] }
+pytest = "8.3.3"
+autopep8 = "2.3.1"
+coverage = "7.6.3"
+pytest-cov = "5.0.0"
+pytest-asyncio = "0.24.0"
+pre-commit = "4.0.1"
+black = "24.10.0"
+pytest-benchmark = "4.0.0"
+pytest-mypy = "0.10.3"
+Flake8-pyproject = "1.2.3"
+Flake8 = "7.1.1"
+autoflake = "2.3.1"
+
+[tool.poetry.group.dev.dependencies]
+python-dotenv = "^1.0.1"
+
+[tool.pytest.ini_options]
+norecursedirs = "tests/test_data"
+addopts = [
+    "--disable-pytest-warnings",
+    "--durations=50",
+    "--verbose",
+    "--capture=no",
+    "--showlocals",
+    "--tb=short",
+    "--cov=castlabs",
+    "--cov-fail-under=100",
+    "--cov-branch",
+    "--cov-config=",
+    "--color=yes",
+    "--cov-report=lcov:coverage/lcov.info",
+    "--cov-report=term-missing:skip-covered",
+]
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+include = '\.pyi?$'
+force-exclude = "test_data|.venv|cdk.out"
+
+[tool.flake8]
+exclude = "test_data,.venv,cdk.out"
+max-line-length = 120
+max-complexity = 18
+
+[tool.pylint]
+extension-pkg-whitelist = "pydantic"
+ignore = "test_data|.venv|cdk.out"
+max-line-length = 120
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.mypy]
+python_version = "3.10"
+check_untyped_defs = true
+ignore_missing_imports = true
+disallow_untyped_defs = true
+warn_return_any = true
+exclude = "(.venv)"
+plugins = "sqlalchemy.ext.mypy.plugin"
