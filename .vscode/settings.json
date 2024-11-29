@@ -1,0 +1,50 @@
+{
+  "python.testing.pytestArgs": ["tests", "--no-cov"],
+  "python.testing.pytestEnabled": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.inlayHints.pytestParameters": true,
+  "python.testing.cwd": "${workspaceFolder}",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "ms-python.black-formatter",
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportGeneralTypeIssues": "error"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit",
+      "source.fixAll": "explicit",
+      "source.fixAll.pylance": "explicit",
+      "source.unusedImports": "explicit",
+      "black": "explicit"
+    }
+  },
+  "python.testing.unittestEnabled": false,
+  "files.exclude": {
+    "**/.pytest_cache": true
+  },
+  "python.analysis.exclude": [".venv/", "/opt/", "~/.vscode/"],
+  "python.analysis.autoImportCompletions": false,
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.inlayHints.callArgumentNames": "off",
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "editor.formatOnPaste": true,
+  "isort.args": ["--profile", "black"],
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "mypy-type-checker.importStrategy": "fromEnvironment",
+  "mypy-type-checker.reportingScope": "workspace",
+  "mypy-type-checker.preferDaemon": true,
+  "isort.importStrategy": "fromEnvironment",
+  "isort.check": true,
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml"
+  },
+  "python.languageServer": "Pylance"
+}
