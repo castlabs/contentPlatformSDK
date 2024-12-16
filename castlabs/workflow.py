@@ -319,6 +319,8 @@ class Process:
         # TODO: Delete this or write unit tests for this
         # elif response_data.get("action") == "publishPo":
         #     setattr(self, "publish_process", response_data)
+        else: # pragma: no cover
+            raise NotImplementedError("Unknown action")
 
         return self
 
