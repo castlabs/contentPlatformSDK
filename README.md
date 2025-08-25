@@ -15,8 +15,8 @@ The ContentPlatform SDK is a Python client for interfacing with the Castlabs pla
 This project uses Poetry for dependency management. To get started:
 
 1. Ensure Poetry is installed on your system. [Installation guide](https://python-poetry.org/docs/).
-2. Install dependencies: poetry install
-3. To activate the virtual environment: poetry shell
+2. Install dependencies: ```poetry install```
+3. To activate the virtual environment: ```eval $(poetry env activate)```
 
 ## Getting Started
 
@@ -72,9 +72,11 @@ print(f"Uploaded file to: {remote_path}")
 
 ### List files in the remote directory
 
+```python
 remote_directory = "video_1242"
 files = platform.list_files(remote_directory)
 print(f"Files in directory: {files}")
+```
 
 ### Generate Presigned URL
 
@@ -169,6 +171,7 @@ Starts an encoding job for the specified file.
 - group_name: Group name for the encoding job.
 - encode_name: Optional name for the encoding job.
 - template: Encoding template to use (default: "cmaf-abr").
+- format_specific_data: Extra parameters for the encoding template
 - webhook_url: Optional URL for encoding status updates.
 
 #### `get_status(remote_path: Optional[str] = None, group_name: str = "default_group", encode_name: Optional[str] = None) -> Encoding`
@@ -191,7 +194,7 @@ To ensure the reliability and accuracy of the ContentPlatform SDK, we use `pytes
 
 Before running the tests, ensure you have the following:
 
-1. **Python Environment**: Ensure you have set up the virtual environment using `poetry install` and activated it with `poetry shell`.
+1. **Python Environment**: Ensure you have set up the virtual environment using `poetry install` and activated it with `eval $(poetry env activate)`.
 2. **Environment Variables**: A `.env` file must be configured with the required API credentials.
 
 ### Setting Up the `.env` File
