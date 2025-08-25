@@ -27,6 +27,7 @@ class Workflow:
         process_name: str,
         destination: str = "vod",
         template: str = "cmaf-abr",
+        format_specific_data: dict = "{}",
         auto_publish: bool = True,
         webhook_url: Optional[str] = None,
         wait_timeout: int = 10,
@@ -43,6 +44,7 @@ class Workflow:
         :param process_name: Name of the specific encoding process of a title
         :param destination: (Optional) Per default this is the cloudfront origin for VOD streaming
         :param template: (Optional) Per default this is the VOD streaming template
+        :param format_specific_data: (Optional) Provide extra parameters for the encoding workflow
         :param auto_publish: (Optional) Per default a workflow publishes automatically to the destination. In case QC
         of the encoded files is necessary this can be set to 'False'. A preview can be requested and publishing can be
         triggered manually.

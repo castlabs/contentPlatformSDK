@@ -160,6 +160,7 @@ class ContentPlatform:
         group_name: str = "default_group",
         encode_name: Optional[str] = None,
         template="cmaf-abr",
+        format_specific_data: Optional[dict] = None,
         webhook_url: Optional[str] = None,
     ) -> Encoding:
         """
@@ -176,6 +177,7 @@ class ContentPlatform:
             group_name,
             encode_name,
             template=template,
+            format_specific_data=format_specific_data,
             webhook_url=webhook_url,
         )
         process.refresh_state()
