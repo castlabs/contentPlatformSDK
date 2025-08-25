@@ -63,7 +63,7 @@ class Workflow:
                     "po_destination": destination,
                     "vtk_template": template,
                     "auto_publish": auto_publish,
-                    "format_specific_data": "{}",
+                    "format_specific_data": format_specific_data,
                 },
                 "query": """
                     mutation start_workflow_vod_default(
