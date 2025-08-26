@@ -168,6 +168,7 @@ class ContentPlatform:
         :param path: The path to encode
         :param group_name: The group name
         :param encode_name: The encode name
+        :param format_specific_data: Extra parameters for the encoding workflow
         """
         encode_name = encode_name or remote_path.split("/")[-1]
 
