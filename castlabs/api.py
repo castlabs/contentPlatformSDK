@@ -160,6 +160,7 @@ class ContentPlatform:
         group_name: str = "default_group",
         encode_name: Optional[str] = None,
         template="cmaf-abr",
+        format_specific_data: Optional[dict] = None,
         webhook_url: Optional[str] = None,
     ) -> Encoding:
         """
@@ -167,6 +168,7 @@ class ContentPlatform:
         :param path: The path to encode
         :param group_name: The group name
         :param encode_name: The encode name
+        :param format_specific_data: Extra parameters for the encoding workflow
         """
         encode_name = encode_name or remote_path.split("/")[-1]
 
@@ -176,6 +178,7 @@ class ContentPlatform:
             group_name,
             encode_name,
             template=template,
+            format_specific_data=format_specific_data,
             webhook_url=webhook_url,
         )
         process.refresh_state()
