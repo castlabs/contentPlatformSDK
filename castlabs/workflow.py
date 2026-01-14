@@ -321,7 +321,7 @@ class Process:
         # TODO: Delete this or write unit tests for this
         # elif response_data.get("action") == "publishPo":
         #     setattr(self, "publish_process", response_data)
-        else: # pragma: no cover
+        else:  # pragma: no cover
             raise NotImplementedError("Unknown action")
 
         return self
@@ -333,12 +333,22 @@ class Process:
         :param url:
         """
         for sub_process in (self.encoding_process, self.publish_process):
-            logger.info(f"Registering webhook for process {sub_process.get('id')}")
+            if not sub_process:
+                logger.warning("Skipping webhook registration: sub_process is missing or None.")
+                continue
+
+            process_id = sub_process.get('id')
+            if not process_id:
+                logger.warning("Skipping webhook registration: sub_process exists but has no 'id'.")
+                continue
+
+            logger.info(f"Registering webhook for process {process_id}")
+
             self._client._query_api(
                 "workflow",
                 query={
                     "operationName": "registerWebhook",
-                    "variables": {"input": {"process_id": sub_process.get("id"), "webhook_url": url}},
+                    "variables": {"input": {"process_id": process_id, "webhook_url": url}},
                     "query": """
                         mutation registerWebhook($input: RegisterWebhookInput!) {
                             registerWebhook(input: $input) {

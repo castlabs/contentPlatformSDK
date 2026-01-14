@@ -205,12 +205,12 @@ The file should look something like this:
 
 ```bash
 # This value is provided by Castlabs
-ORGANIZATION_URN = "urn:janus:organization:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+ORGANIZATION_URN="urn:janus:organization:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 # See https://account.castlabs.com/account to get the following values
-USER_URN = "urn:janus:user:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-API_ACCESS_KEY_ID = "urn:janus:accesskey:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-API_SECRET_ACCESS_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+USER_URN="urn:janus:user:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+API_ACCESS_KEY_ID="urn:janus:accesskey:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+API_SECRET_ACCESS_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
 ## Contributing

@@ -160,7 +160,7 @@ class ContentPlatform:
         group_name: str = "default_group",
         encode_name: Optional[str] = None,
         template="cmaf-abr",
-        format_specific_data: Optional[dict] = None,
+        format_specific_data: Optional[dict] = "{}",
         webhook_url: Optional[str] = None,
     ) -> Encoding:
         """
