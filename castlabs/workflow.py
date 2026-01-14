@@ -328,38 +328,48 @@ class Process:
 
     def register_webhook(self, url):
         """
-        Registers a webhook (POST) for updates on final (SUCCESS and ERROR) encoding and publishing events
-
-        :param url:
+        Registers a webhook for all sub-processes, waiting for
+        asynchronous creation if necessary.
         """
-        for sub_process in (self.encoding_process, self.publish_process):
-            if not sub_process:
-                logger.warning("Skipping webhook registration: sub_process is missing or None.")
-                continue
+        # Define which processes we expect based on the workflow type
+        # For VOD, we expect both encoding and publishing
+        expected_processes = ["encoding_process", "publish_process"]
+
+        for attr_name in expected_processes:
+            sub_process = getattr(self, attr_name)
+
+            # If it's missing, try to refresh the state once to catch a
+            # quick creation on the server
+            if not sub_process or not sub_process.get('id'): # pragma: no cover
+                logger.info(f"{attr_name} not found, refreshing state...")
+                self.refresh_state()
+                sub_process = getattr(self, attr_name)
+
+            # Final check
+            if not sub_process or not sub_process.get('id'): # pragma: no cover
+                logger.warning(f"Could not register webhook for {attr_name}: Not initialized by server.")
+                continue # Better than a crash, but logs the failure
 
             process_id = sub_process.get('id')
-            if not process_id:
-                logger.warning("Skipping webhook registration: sub_process exists but has no 'id'.")
-                continue
-
-            logger.info(f"Registering webhook for process {process_id}")
+            logger.info(f"Registering webhook for {attr_name} (ID: {process_id})")
 
             self._client._query_api(
                 "workflow",
                 query={
                     "operationName": "registerWebhook",
-                    "variables": {"input": {"process_id": process_id, "webhook_url": url}},
+                    "variables": {
+                        "input": {
+                            "process_id": process_id,
+                            "webhook_url": url
+                        }
+                    },
                     "query": """
                         mutation registerWebhook($input: RegisterWebhookInput!) {
                             registerWebhook(input: $input) {
                                 id
-                                input
                                 state
-                                data
                                 message
                                 action
-                                start_date
-                                end_date
                             }
                         }""",
                 },
