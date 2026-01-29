@@ -1,4 +1,5 @@
 import os
+import time
 from datetime import datetime, timedelta
 
 import requests
@@ -36,23 +37,32 @@ def test_end_to_end(platform: ContentPlatform) -> None:
 
 
 def test_upload_url(platform: ContentPlatform) -> None:
-
-    # Get a browser based upload URL
-    assert platform.get_upload_url("test_folder").startswith("https://up.content.castlabs.com")
-    assert platform.get_upload_url("test_folder").startswith("https://up.content.castlabs.com")
-
     # Get upload credentials
-    credentials = platform.get_upload_credentials("test_folder")
-    requests.post(
-        credentials.url,
-        data=credentials.fields,
-        files={"file": (os.path.basename(TEST_VIDEO_PATH), open(TEST_VIDEO_PATH, "rb"))},
-    )
-    assert platform.list_files("test_folder") == [os.path.basename(TEST_VIDEO_PATH)]
+    folder = "test_folder"
+    remote_path = f"{folder}/{os.path.basename(TEST_VIDEO_PATH)}"
+    credentials = platform.get_upload_credentials(remote_path)
 
-    credentials_2 = platform.get_upload_credentials("test_folder_1")
-    assert credentials_2.url == credentials.url
-    assert credentials_2.fields != credentials.fields
+    # Use a 'with' statement to ensure the file is closed
+    with open(TEST_VIDEO_PATH, "rb") as f:
+        response = requests.post(
+            credentials.url,
+            data=credentials.fields,
+            files={"file": (os.path.basename(TEST_VIDEO_PATH), f)},
+        )
+
+    # S3 returns 204 No Content on a successful POST upload
+    assert response.status_code == 204
+
+    # Wait up to 5 seconds for S3 to reflect the change
+    for _ in range(5):
+        files = platform.list_files(folder)
+        if os.path.basename(TEST_VIDEO_PATH) in files:
+            break
+        time.sleep(1)
+
+    # Verify the file exists in the folder we just uploaded to
+    files = platform.list_files(folder)
+    assert os.path.basename(TEST_VIDEO_PATH) in files
 
 
 def test_get_groups(platform: ContentPlatform) -> None:

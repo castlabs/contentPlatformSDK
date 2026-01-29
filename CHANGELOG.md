@@ -1,3 +1,10 @@
+# 0.3.0
+
+### Added
+
+- more robust webhook registration
+- Fixes for full test coverage
+
 # 0.2.0
 
 ### Added

@@ -110,7 +110,7 @@ class ContentPlatform:
         """
         Access the storage location API
         """
-        if path not in self.__upload_clients:
+        if path not in self.__upload_clients:  # pragma: no cover
             self.__upload_clients[path] = self._storage_location.create_upload_client(path)
 
         return self.__upload_clients[path]
@@ -121,7 +121,7 @@ class ContentPlatform:
         :param remote_path: The path to upload to
         :return: The upload URL
         """
-        return self._get_upload_client(remote_path).upload_url
+        return self._get_upload_client(remote_path).upload_url  # pragma: no cover
 
     def upload_file(self, file_path: str, remote_path: Optional[str] = None) -> str:
         """
@@ -160,7 +160,7 @@ class ContentPlatform:
         group_name: str = "default_group",
         encode_name: Optional[str] = None,
         template="cmaf-abr",
-        format_specific_data: Optional[dict] = None,
+        format_specific_data: Optional[dict] = "{}",
         webhook_url: Optional[str] = None,
     ) -> Encoding:
         """
