@@ -39,7 +39,7 @@ def test_end_to_end(platform: ContentPlatform) -> None:
 def test_upload_url(platform: ContentPlatform) -> None:
     # Get upload credentials
     folder = "test_folder"
-    remote_path = f"test_folder/{os.path.basename(TEST_VIDEO_PATH)}"
+    remote_path = f"{folder}/{os.path.basename(TEST_VIDEO_PATH)}"
     credentials = platform.get_upload_credentials(remote_path)
 
     # Use a 'with' statement to ensure the file is closed
